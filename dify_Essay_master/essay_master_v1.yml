@@ -1,0 +1,421 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 产品阿康的作文大师
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.9@8cc65e3d2ce11b03d377ee008dc699c7016601c2646a09c983fcf7c1fd7827ee
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 76310a55-62a5-4cf5-acbe-439e4c541421
+    name: last_paper
+    selector:
+    - conversation
+    - last_paper
+    value: ''
+    value_type: string
+  - description: ''
+    id: 770d8e92-6946-4e7a-81ca-be4c94b3dfe2
+    name: score
+    selector:
+    - conversation
+    - score
+    value: 0
+    value_type: integer
+  - description: ''
+    id: 7b26bc24-f7e0-4f62-962f-22f0f2000db8
+    name: last_feedback
+    selector:
+    - conversation
+    - last_feedback
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: loop
+        targetType: answer
+      id: 1768047841024-source-answer-target
+      selected: false
+      source: '1768047841024'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1768047841024'
+        sourceType: loop-start
+        targetType: llm
+      id: 1768047841024start-source-1768049443708-target
+      selected: false
+      source: 1768047841024start
+      sourceHandle: source
+      target: '1768049443708'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1768047841024'
+        sourceType: llm
+        targetType: assigner
+      id: 1768049495774-source-1768050307496-target
+      selected: false
+      source: '1768049495774'
+      sourceHandle: source
+      target: '1768050307496'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: loop
+      id: 1768039727346-source-1768047841024-target
+      selected: false
+      source: '1768039727346'
+      sourceHandle: source
+      target: '1768047841024'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1768047841024'
+        sourceType: llm
+        targetType: llm
+      id: 1768049443708-source-1768049495774-target
+      selected: false
+      source: '1768049443708'
+      sourceHandle: source
+      target: '1768049495774'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1768039727346'
+      position:
+        x: 0
+        y: 129
+      positionAbsolute:
+        x: 0
+        y: 129
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#conversation.last_paper#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 2130.780359795325
+        y: -76.18755621007782
+      positionAbsolute:
+        x: 2130.780359795325
+        y: -76.18755621007782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        break_conditions:
+        - comparison_operator: ≥
+          id: 9ef89c10-4c29-4bfd-be7d-4240ba1ae8f5
+          value: '95'
+          varType: number
+          variable_selector:
+          - conversation
+          - score
+        error_handle_mode: terminated
+        height: 332
+        logical_operator: and
+        loop_count: 3
+        loop_variables:
+        - id: e9b82c90-49c2-47dd-bb75-72f2188f094e
+          label: query
+          value:
+          - sys
+          - query
+          value_type: variable
+          var_type: string
+        selected: true
+        start_node_id: 1768047841024start
+        title: 循环
+        type: loop
+        width: 1290
+      height: 332
+      id: '1768047841024'
+      position:
+        x: 342
+        y: 0
+      positionAbsolute:
+        x: 342
+        y: 0
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1290
+      zIndex: 1
+    - data:
+        desc: ''
+        isInLoop: true
+        selected: false
+        title: ''
+        type: loop-start
+      draggable: false
+      height: 48
+      id: 1768047841024start
+      parentId: '1768047841024'
+      position:
+        x: 60
+        y: 104
+      positionAbsolute:
+        x: 402
+        y: 104
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-loop-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1768047841024'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 4037f4a3-4f60-4634-8ac8-c156a284f6b9
+          role: system
+          text: "# 角色\n你是一名具备顶级自省与逻辑建模能力的作文大师。\n\n# 任务\n针对用户提出的{{#sys.query#}}进行深度创作。\n\
+            \n# 写作规则\n请根据 {{#conversation.last_feedback#}}的内容自主切换创作状态：\n\n1. 内省创作(当反馈为\"\
+            无\"或初始状态时)：\n   - 目标：调动你庞大的内部知识库，输出一篇逻辑严密、文采斐然的【思想初稿】。\n   - 重点：专注于文章的立意、情感共鸣和核心论点的建立。\n\
+            \n2. 逻辑对齐与细节改进 (当收到具体反馈意见时)：\n   - 目标：在初稿基础上，进行【极致的逻辑审计与细节填充】。\n   - 执行：针对反馈中指出的“笼统”、“缺乏细节”等问题，你必须挖掘更多深层案例、对比论证以及更具张力的排比句式。\n\
+            \   - 要求：每一段话都要经得起推敲。\n\n# 约束\n- 严禁在回复中输出任何“收到反馈”、“正在修改”等寒暄。\n- 必须基于上一轮的内容进行全篇幅的深度重构，而不是简单的修补。"
+        - id: 999a2fc6-188c-4ce5-9342-58a0a3f28103
+          role: user
+          text: '- 用户初始作文要求: {{#sys.query#}}
+
+            - 最新的作文内容：{{#conversation.last_paper#}}
+
+            - 最新的打分：{{#conversation.score#}}
+
+            - 反馈建议内容: {{#conversation.last_feedback#}}'
+        selected: false
+        title: 作文大师
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1768049443708'
+      parentId: '1768047841024'
+      position:
+        x: 184
+        y: 84
+      positionAbsolute:
+        x: 526
+        y: 84
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1768047841024'
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: cfd5d984-84c1-4b62-a06b-6955b506c415
+          role: system
+          text: "#角色\n你是一名严苛的作文评审官。\n#任务\n对收到的内容{{#1768049443708.text#}}进行打分，注意满分是100分。\n\
+            #评分规则\n- 逻辑性: 是否存在逻辑漏洞？\n- 深度: 是否流于表面，仅提供废话？\n- 语言表达: 是否使用了高级作文的写法（如排比、引用名人名言或案例等）？\n\
+            \n# 输出格式\n{\n  \"quality_score\": number, \n  \"feedback\": \"具体哪一句话有问题，给出修改逻辑\"\
+            \n}\n"
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              feedback:
+                description: 点评内容。
+                type: string
+              quality_score:
+                description: 分数
+                type: number
+            required:
+            - quality_score
+            - feedback
+            type: object
+        structured_output_enabled: true
+        title: 评分大师
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1768049495774'
+      parentId: '1768047841024'
+      position:
+        x: 506
+        y: 84
+      positionAbsolute:
+        x: 848
+        y: 84
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1768049495774'
+          - structured_output
+          - feedback
+          variable_selector:
+          - conversation
+          - last_feedback
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1768049495774'
+          - structured_output
+          - quality_score
+          variable_selector:
+          - conversation
+          - score
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1768049443708'
+          - text
+          variable_selector:
+          - conversation
+          - last_paper
+          write_mode: over-write
+        loop_id: '1768047841024'
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 136
+      id: '1768050307496'
+      parentId: '1768047841024'
+      position:
+        x: 828
+        y: 60
+      positionAbsolute:
+        x: 1170
+        y: 60
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    viewport:
+      x: 128.59919633997748
+      y: 206.39503400181576
+      zoom: 0.48899098265542584
+  rag_pipeline_variables: []
